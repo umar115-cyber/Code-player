@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code-Player</title>
+    <link rel="shortcut icon" href="/images/promo.png" type="image/x-icon">
+      <link rel="stylesheet" href="/jquery-ui-1.14.2/jquery-ui-1.14.2/jquery-ui.css">
+    
+    <!-- Link the core jQuery JavaScript library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    
+    <!-- Link the jQuery UI JavaScript library (must be after the core jQuery script) -->
+    <script src="/jquery-ui-1.14.2/jquery-ui-1.14.2/jquery-ui.js"></script>
+    <style>
+
+        body{
+            margin: 0px;
+            padding: 0px;
+            box-sizing:border-box;
+        }
+        .head-container{
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+        }
+        .header-image{
+            width: 70px;
+            height: 70px;
+        }
+        .header-imag{
+            width: 30px;
+            height: 30px;
+        }
+        .head-buttons{
+          width: 400px;
+          height: 100px;
+        }
+
+       .head-buttons ul{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: larger;
+        font-weight: bold;
+       }
+       .head-buttons ul li{
+          list-style-type:none;
+       }
+       .head-buttons ul li a{
+        color: black;
+        text-decoration: none;
+        border: 1px solid black;
+        padding:10px 15px;
+        margin-left: 6px;
+        margin-right: 6px;
+        border-radius: 5px;
+       }
+       .head-buttons ul li a:hover{
+        background-color: black;
+        color: white;
+       }
+       .body-container{
+        display: flex;
+        flex-direction: row;
+       }
+       .panel{
+        display: block;
+       }
+       .hidden{
+        display: none;
+       }
+      
+    </style>
+</head>
+<body>
+    <!-- header section of the code editor -->
+     <header>
+        <div class="head-container body">
+
+            <div >
+                <img src="/images/promo.png" alt="coding logo png" class="header-image">
+            </div>
+
+            <div class="head-buttons">
+                <ul>
+                    <li><a href="#" id="html-btn">HTML</a></li>
+                    <li><a href="#" id="css-btn" >CSS</a></li>
+                    <li><a href="#" id="javascript-btn" >Javascript</a></li>
+                    <li><a href="#" id="frame-btn">Preview</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <img src="/images/light.png" alt="bulbpng" class="header-imag ">
+            </div>
+
+        </div>
+     </header>
+<!--   main section of the code editor -->
+     <main>
+        <div class="body-container">
+        
+        <textarea name="panel " class="panel html" id="htmlpanel"><p>HTML panel</p></textarea>
+        <textarea name="panel " class="panel css" id="csspanel">css {color: red}</textarea>
+        <textarea name="panel " class="panel javascript" id="javascriptpanel">alert();</textarea>
+
+      <iframe class="panel frame" id="framepanel"></iframe>
+        </div>
+
+     </main>
+
+
+
+
+     <script type="text/javascript">
+       
+
+       /*  fixed the heights and width of text areas  */
+
+        $(".panel").height($(window).height()-$(".head-container").height()-15);
+        $(".panel").width(($(window).width()/4)-10);
+
+
+      /*  toggle the windows of html css and javascript */
+        $("#html-btn").on("click" , function(){
+        $(".html").toggleClass("hidden");
+        });
+        $("#css-btn").on("click" , function(){
+        $(".css").toggleClass("hidden");
+        });
+        $("#javascript-btn").on("click" , function(){
+        $(".javascript").toggleClass("hidden");
+        });
+        $("#frame-btn").on("click" , function(){
+        $(".frame").toggleClass("hidden");
+        });
+
+        /* iframe rezizing */
+      $(function(){
+        $("iframe").resizable();
+        });
+
+       /*  showing html into the i frame */
+       function updatepreview(){
+       var html=$("#htmlpanel").val();
+       var css="<style>" + $("#csspanel").val() + "</style>"
+       var javascript="<script>" + $("#javascriptpanel").val() +"<\/script>";
+
+        $("iframe").contents().find("html").html(html+css+javascript);
+       };
+
+
+       $("textarea").on('change keyup paste',function(){
+       updatepreview();
+    });
+
+
+     </script>
+   
+</body>
+</html>
