@@ -149,14 +149,16 @@
         });
 
        /*  showing html into the i frame */
-       function updatepreview(){
-       var html=$("#htmlpanel").val();
-       var css="<style>" + $("#csspanel").val() + "</style>"
-       var javascript="<script>" + $("#javascriptpanel").val() +"<\/script>";
+        function updatepreview(){
+              var html = $("#htmlpanel").val();
+              var css = "<style>" + $("#csspanel").val() + "</style>";
+              var javascript = "<script>window.onload = function() { " 
+                                + $("#javascriptpanel").val() + 
+                                " }<\/script>";
 
-        $("iframe").contents().find("html").html(html+css+javascript);
-       };
-
+         $("#framepanel").attr("srcdoc", html + css + javascript);
+        }
+        
 
        $("textarea").on('change keyup paste',function(){
        updatepreview();
